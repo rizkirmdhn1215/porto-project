@@ -1,12 +1,14 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Element, Link as ScrollLink } from 'react-scroll'
+import { Link as ScrollLink, Element } from 'react-scroll'
 import HeroSection from './HeroSection'
 import SkillSection from './SkillSection'
 import ExperienceSection from './ExperienceSection'
 import ProjectSection from './ProjectSection'
 import EducationSection from './EducationSection'
+import SectionWrapper from './SectionWrapper'
+import PixelatedChicken from './PixelatedChicken'
 
 const sections = ['hero', 'skills', 'experience', 'projects', 'education']
 
@@ -15,18 +17,14 @@ export default function Portfolio() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 1000)
-
-    return () => clearTimeout(timer)
+    setIsLoading(false)
   }, [])
 
   if (isLoading) {
     return (
       <div className="h-screen w-full flex items-center justify-center bg-gray-100">
-        <div className="text-4xl font-bold text-blue-500 animate-pulse">
-          Loading...
+        <div className="text-4xl font-bold text-blue-500">
+          Loading
         </div>
       </div>
     )
@@ -59,22 +57,23 @@ export default function Portfolio() {
       </nav>
 
       <main className="container mx-auto px-4 pb-16">
-        <Element name="hero" className="min-h-screen py-16">
-          <HeroSection />
-        </Element>
-        <Element name="skills" className="min-h-screen py-16">
-          <SkillSection />
-        </Element>
-        <Element name="experience" className="min-h-screen py-16">
-          <ExperienceSection />
-        </Element>
-        <Element name="projects" className="min-h-screen py-16">
-          <ProjectSection />
-        </Element>
-        <Element name="education" className="min-h-screen py-16">
-          <EducationSection />
-        </Element>
+        {sections.map((section) => (
+          <Element
+            key={section}
+            name={section}
+          >
+            <SectionWrapper>
+              {section === 'hero' && <HeroSection />}
+              {section === 'skills' && <SkillSection />}
+              {section === 'experience' && <ExperienceSection />}
+              {section === 'projects' && <ProjectSection />}
+              {section === 'education' && <EducationSection />}
+            </SectionWrapper>
+          </Element>
+        ))}
       </main>
+
+      <PixelatedChicken />
     </div>
   )
 }
