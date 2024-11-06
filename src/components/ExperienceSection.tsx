@@ -25,11 +25,47 @@ export default function ExperienceSection() {
       company: "Padepokan Tujuh Sembilan",
       location: "Bandung, West Java",
       date: "Aug 2024 - Oct 2024",
-      icon: "🚀",
+      icon: "💻",
       responsibilities: [
         "Developed comprehensive web applications using Spring Boot, React, Laravel, and Next.js.",
         "Proficient in building RESTful APIs, creating user-friendly interfaces, and utilizing Laravel's MVC architecture.",
         "Continuously exploring new tools and techniques to optimize performance and user experience."
+      ]
+    },
+    {
+      title: "Full-stack Developer (Apprenticeship)",
+      company: "Arutala Lab",
+      location: "Bandung, West Java",
+      date: "Jul 2024",
+      icon: "🚀",
+      responsibilities: [
+        "Developed web applications using Laravel framework with a focus on MVC architecture and RESTful API development.",
+        "Utilized CSS and Bootstrap to create responsive user interfaces for enhanced user experience.",
+        "Managed databases efficiently to ensure seamless integration and functionality."
+      ]
+    },
+    {
+      title: "Programmer (Apprenticeship)",
+      company: "Arutala Lab",
+      location: "Payakumbuh, West Sumatra",
+      date: "Mar 2024",
+      icon: "⌨️",
+      responsibilities: [
+        "Developed a solid foundation in programming principles, focusing on logical problem-solving and pseudocode.",
+        "Applied programming concepts in Java to write, debug, and optimize simple programs.",
+        "Designed algorithms, translated them into pseudocode, and implemented them in Java to create efficient applications."
+      ]
+    },
+    {
+      title: "Intermediate Computer Operator (Apprenticeship)",
+      company: "Digitalent",
+      location: "Lima Puluh Kota Regency, West Sumatra",
+      date: "Jun 2023 - Jul 2023",
+      icon: "🖥️",
+      responsibilities: [
+        "Managed data input, processing, and system monitoring to ensure smooth operations at Digitalent.",
+        "Troubleshot computer systems and networks to identify and resolve issues promptly.",
+        "Operated and maintained various software applications and hardware within the organization."
       ]
     }
   ]
@@ -45,28 +81,29 @@ export default function ExperienceSection() {
         Professional Experience
       </motion.h2>
 
-      <div className="max-w-4xl mx-auto">
-        {experiences.map((exp, index) => (
-          <motion.div
-            key={exp.title}
-            className="relative mb-12 last:mb-0"
-            initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-            transition={{ duration: 0.5, delay: index * 0.2 }}
-          >
-            {/* Timeline line */}
-            {index !== experiences.length - 1 && (
-              <div className="absolute left-[27px] top-[60px] bottom-[-30px] w-[2px] bg-gradient-to-b from-orange-500 to-transparent" />
-            )}
-
-            <div className="flex items-start gap-6 p-6 rounded-lg bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 transform-gpu">
-              <div className="flex-shrink-0 w-14 h-14 rounded-full bg-orange-100 flex items-center justify-center text-2xl">
-                {exp.icon}
-              </div>
+      {/* Container with fixed height and scrolling */}
+      <div className="max-w-4xl mx-auto h-[70vh] relative bg-gradient-to-b from-white to-transparent">
+        <div className="absolute inset-0 overflow-y-auto custom-scrollbar pr-4">
+          {experiences.map((exp, index) => (
+            <motion.div
+              key={exp.title}
+              className="relative mb-8 last:mb-0"
+              initial={{ opacity: 0, x: -20 }}
+              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              {/* Timeline line */}
+              <div className="absolute left-[27px] top-0 bottom-0 w-[2px] bg-orange-200" />
               
-              <div className="flex-1">
+              {/* Timeline dot */}
+              <div className="absolute left-[20px] top-[30px] w-4 h-4 rounded-full bg-orange-500 border-4 border-white shadow-sm z-10" />
+
+              <div className="ml-16 p-6 rounded-lg bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 transform-gpu">
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                  <h3 className="text-xl font-bold text-gray-800">{exp.title}</h3>
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">{exp.icon}</span>
+                    <h3 className="text-xl font-bold text-gray-800">{exp.title}</h3>
+                  </div>
                   <span className="text-sm font-medium text-orange-600 bg-orange-50 px-3 py-1 rounded-full">
                     {exp.date}
                   </span>
@@ -87,9 +124,9 @@ export default function ExperienceSection() {
                   ))}
                 </ul>
               </div>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          ))}
+        </div>
       </div>
     </div>
   )
