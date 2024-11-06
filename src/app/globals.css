@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Rest of your custom styles */
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Add smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom styles for better readability and aesthetics */
+.container {
+  max-width: 1200px;
+}
+
+/* Add a subtle hover effect to buttons */
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Improve accessibility for focus states */
+button:focus,
+a:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
