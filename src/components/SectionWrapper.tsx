@@ -8,17 +8,15 @@ export default function SectionWrapper({ children }: { children: React.ReactNode
     offset: ["start end", "end start"]
   })
 
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8])
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 1, 0.3])
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95])
 
   return (
     <motion.div
       ref={ref}
       style={{
-        scale,
-        opacity
+        scale
       }}
-      className="min-h-screen py-16"
+      className="min-h-screen py-16 transform-gpu"
     >
       {children}
     </motion.div>

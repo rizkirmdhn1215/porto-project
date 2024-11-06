@@ -1,49 +1,96 @@
-import { motion } from 'framer-motion'
+'use client'
 
-const projects = [
-  {
-    name: "Android Application with Kotlin and Firebase Firestore",
-    description: "Developed an Android application using Kotlin that integrates Firebase Firestore for data storage and retrieval. The app features a clean and intuitive user interface, allowing users to easily interact with data.",
-    link: "#" // Replace with actual project link
-  }
-]
+import { motion, useInView } from 'framer-motion'
+import { useRef, useState } from 'react'
+import Image from 'next/image'
 
 export default function ProjectSection() {
+  const sectionRef = useRef(null)
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" })
+  const [hoveredProject, setHoveredProject] = useState<string | null>(null)
+
+  const projects = [
+    {
+      name: "Android Application",
+      description: "Developed an Android application using Kotlin that integrates Firebase Firestore for data storage and retrieval. The app features a clean and intuitive user interface.",
+      technologies: ["Kotlin", "Firebase", "Android SDK"],
+      image: "/images/project1.jpg", // Add your project images
+      link: "#",
+      github: "#"
+    },
+    // Add more projects...
+  ]
+
   return (
-    <div>
-      <h2 className="text-2xl font-bold mb-4">Projects</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="py-16 px-4 no-blur" ref={sectionRef}>
+      <motion.h2 
+        className="text-3xl font-bold text-center mb-12 text-gray-800"
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        transition={{ duration: 0.5 }}
+      >
+        Featured Projects
+      </motion.h2>
+
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
         {projects.map((project, index) => (
           <motion.div
-            key={index}
-            className="bg-white p-6 rounded-lg shadow-md"
-            whileHover={{ scale: 1.05 }}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: index * 0.1 }}
+            key={project.name}
+            className="relative group"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.5, delay: index * 0.2 }}
+            onHoverStart={() => setHoveredProject(project.name)}
+            onHoverEnd={() => setHoveredProject(null)}
           >
-            <h3 className="text-xl font-semibold mb-2">{project.name}</h3>
-            <p className="text-gray-600 mb-4">{project.description}</p>
-            <a href={project.link} className="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">
-              View Project
-            </a>
+            <div className="relative overflow-hidden rounded-lg shadow-lg bg-white transform-gpu transition-all duration-300 hover:-translate-y-2">
+              <div className="relative h-48 overflow-hidden">
+                <Image
+                  src={project.image}
+                  alt={project.name}
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              </div>
+
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-gray-800 mb-2">{project.name}</h3>
+                <p className="text-gray-600 mb-4">{project.description}</p>
+                
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.technologies.map((tech) => (
+                    <span 
+                      key={tech}
+                      className="text-sm bg-orange-50 text-orange-600 px-3 py-1 rounded-full"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex gap-4">
+                  <a 
+                    href={project.link}
+                    className="text-orange-500 hover:text-orange-600 transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Live Demo →
+                  </a>
+                  <a 
+                    href={project.github}
+                    className="text-gray-600 hover:text-gray-800 transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    GitHub →
+                  </a>
+                </div>
+              </div>
+            </div>
           </motion.div>
         ))}
-      </div>
-      <div className="mt-8">
-        <h3 className="text-xl font-semibold mb-4">Achievements</h3>
-        <motion.div
-          className="bg-white p-6 rounded-lg shadow-md"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
-          <p className="text-gray-700">
-            Achieved Top 5 in a competitive national game design competition held by Indoneris in 2022, showcasing creativity and technical skills in game development.
-          </p>
-          <a href="#" className="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">
-            View Certificate
-          </a>
-        </motion.div>
       </div>
     </div>
   )

@@ -116,3 +116,59 @@ main {
 .pixel-chicken {
   animation: walk 0.3s infinite steps(2);
 }
+
+/* Add these CSS rules to fix blurriness */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  perspective: 1000;
+  will-change: transform;
+}
+
+/* Disable blur on mobile devices */
+@media (max-width: 768px) {
+  * {
+    will-change: auto;
+  }
+}
+
+@keyframes progressFill {
+  from {
+    width: 0%;
+  }
+  to {
+    width: var(--skill-level);
+  }
+}
+
+.animate-progress {
+  transition: width 1s ease-out;
+}
+
+/* Add these CSS rules at the top of your globals.css */
+html {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* Optimize animations and transforms */
+* {
+  transform: translateZ(0); /* Force GPU acceleration */
+}
+
+/* Prevent blurry text during animations */
+.no-blur {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  perspective: 1000;
+  -webkit-perspective: 1000;
+}
